@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Models.User>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Добавление пользователя";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="../../Content/Hobbies.css" />
+</head>
+<body>
+    <table width="80%" align="center">
+        <tr>
+            <td>
+                <div>
+                    <h3>Форма добавления пользователя</h3>
+
+                    <form method="Post">
+                        <input type="hidden" value="" name="Id" />
+                        <table>
+                            <tr><td>Фамилия и имя пользователя</td></tr>
+                            <tr><td><input type="text" name="Name" /></td></tr>
+                            <tr><td>Пол</td></tr>
+                            <tr><td><input type="text" name="Sex" /></td></tr>
+                            <tr><td>День рождения</td></tr>
+                            <tr><td><input type="text" name="BirthDay" /> </td></tr>
+                            <tr><td>Возраст</td></tr>
+                            <tr><td><input type="text" name="Age" /> </td></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr><td><p><input type="submit" value="Добавить" /></p> </td></tr>
+                        </table>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+

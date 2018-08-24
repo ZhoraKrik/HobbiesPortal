@@ -1,0 +1,95 @@
+﻿@using Models
+@model HobbiesPortal.ViewModels.AddUserHobbyViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Добавление увлечения пользователю";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="../../Content/Hobbies.css" />
+</head>
+<body>
+    <table width="60%" align="center">
+        <tr><td align="center"><h3>Форма добавления увлечения</h3></td></tr>
+        <tr><td>
+            <div>
+                <form id="ChageType" name="ChangeType" method="get">
+                    <input type="hidden" value="@Model.UserId" id="UserId" name="UserId" />
+
+                    <table align="center" border="1">
+                            <tr><td></td>
+                            <td align="center"><h4><label>Выберите вид увлечения:</label></h4></td>
+                            <td align="center"><h4><label>Выберите увлечение:</label></h4></td>
+                            </tr>
+                        <tr><td></td>
+                            <td align="center">
+                            <select id="TypeId" name="TypeId" class="form-control" onchange="javascript:OnChangedType()">
+                            @foreach (HobbyType item in Model.ListHobbiesTypes)
+                            {
+                                @if (item.Id == ViewBag.TypeId)
+                                {
+                                    <option selected value="@item.Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                            </select>
+                            </td><td align="center">
+                            <select id="NameId" name="NameId" class="form-control" onchange="javascript:OnChangedName()">
+                            @foreach (HobbyName item in Model.SubListHobbyNames)
+                            {
+                                @if (item.Id == ViewBag.NameId)
+                                {
+                                    <option selected value="@item.Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                            </select>
+                            </td>
+                           
+                            <tr><td align="center" >Ид.</td>
+                                <td align="center">Вид</td><td align="center">Увлечение</td></tr>
+                            <tr>
+                                <td align="center">@Model.AddedHobby.Id</td>
+                                <td align="center">@Model.AddedHobby.HobbyTypes.Name</td>
+                                <td align="center">@Model.AddedHobby.HobbyNames.Name</td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <form name="AddUserHobby" method="post">
+                        <input type="hidden" name="UserId" value="@Model.UserId" />
+                        <input type="hidden" name="HobbyId" value="@Model.AddedHobby.Id" />
+                        <input type="submit" value="Сохранить" />
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+
+<script language="javascript">
+    function OnChangedType()
+    {
+        document.getElementById("NameId").value = 0;
+        document.forms["ChageType"].submit();
+    }
+    function OnChangedName()
+    {
+        document.forms["ChageType"].submit();
+    }
+</script>

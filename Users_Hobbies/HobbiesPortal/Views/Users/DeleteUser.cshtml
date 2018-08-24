@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Models.User>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Удаление пользователя";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="../../Content/Hobbies.css" />
+</head>
+<body>
+    <table width="80%" align="center">
+        <tr>
+            <td>
+                <div>
+                    <h3>Форма удаления пользователя</h3>
+
+                    <form name="DeleteUser" method="Post">
+                        <input type="hidden" value="@ViewBag.CurrUser.Id" name="Id" />
+                        <table>
+                            <tr><td>Фамилия и имя пользователя</td></tr>
+                            <tr><td><input type="text" name="Name" value="@ViewBag.CurrUser.Name" /></td></tr>
+                            <tr><td>Пол</td></tr>
+                            <tr><td><input type="text" name="Sex" value="@ViewBag.CurrUser.Sex" /></td></tr>
+                            <tr><td>День рождения</td></tr>
+                            <tr><td><input type="text" name="BirthDay" value="@ViewBag.CurrUser.BirthDay" /> </td></tr>
+                            <tr><td>Возраст</td></tr>
+                            <tr><td><input type="text" name="Age" value="@ViewBag.CurrUser.Age" /> </td></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr><td><p><label><h3>Удалить пользователя?<h3></label><p></td><td></td>
+                                <td><input type="submit" value="Удалить" /></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

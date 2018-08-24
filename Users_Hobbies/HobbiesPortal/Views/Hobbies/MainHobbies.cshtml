@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Список увлечений";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="../../Content/Hobbies.css" />
+</head>
+<body>
+    <table width="60%" align="center" border="0">
+        <tr><td colspan="3" align="center"><h3>Управление увлечениями</h3></td></tr>
+        <tr><td align="center"><a href="~/api/Hobbies/HobbiesTypes">Типы увлечений</a></td>
+            <td align="center"><a href="~/api/Hobbies/HobbiesNames">Названия увлечений</a></td>
+            <td align="center"><a href="~/api/Hobbies/EditHobbies">Увлечения</a></td>
+        </tr>
+    </table>
+</body>
+</html>

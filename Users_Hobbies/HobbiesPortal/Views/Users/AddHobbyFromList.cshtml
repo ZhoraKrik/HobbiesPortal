@@ -1,0 +1,45 @@
+﻿@using Models
+@model IEnumerable<Models.Hobby>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Добавление увлечения пользователю";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="../../Content/Hobbies.css" />
+</head>
+<body>
+    <table width="60%" align="center" name="Hobbies" border="0">
+        <tr>
+            <td></td><td></td><td></td>
+            <td align="center"><h3>Список увлечений</h3></td>
+            <td></td><td><a href="~/api/Users/EditUser?UserId=@ViewBag.UserId">Вернуться</a></td>
+                </td><td></td><td></td>
+        </tr>
+        @foreach (Hobby item in Model)
+        {
+        <tr>
+            <td align="center">Ид.</td>
+            <td>@item.Id</td>
+            <td align="center">Вид</td>
+            <td>@item.HobbyTypes.Name</td>
+            <td align="center">Увлечение</td>
+            <td>@item.HobbyNames.Name</td>
+            <td></td>
+            <td align="center">
+                <form name="AddHobbyFromList" method="post">
+                    <input type="hidden" name="UserId" value="@ViewBag.UserId" />
+                    <input type="hidden" name="HobbyId" value="@item.Id" />
+                    <input type="submit" value="Добавить" />
+                </form>
+            <td>
+        </tr>
+        }
+</table>
+    </body>
+</html>

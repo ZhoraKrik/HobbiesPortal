@@ -1,0 +1,143 @@
+﻿@using Models
+@model HobbiesPortal.ViewModels.ListHobbiesViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Список увлечений";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="../../Content/Hobbies.css" />
+</head>
+<body>
+    <form method="post" id="AddLinkTypeName" name="AddLinkTypeName">
+        <input type="hidden" name="Mode" value="1" />
+        <input type="hidden" name="HobbyId" value="0" />
+        <table name="MainFrame" align="center" width="60%" border="0">
+            <tr><td colspan="3" align="center"><h3>Форма создания списка увлечений</h3></td></tr>
+            <tr>
+                <td align="center" width="40%"><label>Виды увлечений</label></td>
+                <td width="5%"></td>
+                <td align="center" width="40%"><label>Увлечения</label></td>
+            </tr>
+            <tr>
+                <td align="center" width="40%">
+                    <table border="1">
+                        <tr>
+                            <td colspan="2" align="center">
+                                <select id="TypeId" name="TypeId" class="form-control" onchange="OnChangeType()">
+                                    @foreach (HobbyType item in Model.ListHobbiesTypes)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td width="5%"></td>
+                <td align="center" width="40%">
+                    <table border="1">
+                        <tr>
+                            <td colspan="2" align="center">
+                                <select id="NameId" name="NameId" class="form-control" onclick="OnChangeName()">
+                                    @foreach (HobbyName item in Model.SubListHobbyNames)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <table align="center" width="60%" border="0">
+        <tr><td align="center"><h3>Занесение увлечения в список</h3></td></tr>
+        <tr><td align="center">
+                <table border="1" id="LinkTypeName" name="LinkTypeName">
+                    <tr>
+                        <td name="HobbyTypeId" align="center">Ид. Вида</td>
+                        <td name="HobbyTypes" align="center">Вид</td>
+                        <td name="HobbyNameId" align="center">Ид. Увлечения</td>
+                        <td name="HobbyNames" align="center">Увлечение</td>
+                        <td align="center"><button id="LinkButton" disabled onclick="OnCreateLint()">Создать</button></td>
+                    </tr>
+                </table>
+            </td></tr>
+        <tr><td align="center"><h3>Список увлечений</h3></td></tr>
+        <tr><td align="center">
+            <table border="1">
+                <tr><td width="20%" align="center">Ид.</td>
+                    <td width="40%" align="center">Вид</td>
+                    <td width="40%" align="center">Увлечение</td>
+                    <td align="center">Действие</td></tr>
+                    @foreach (Hobby item in Model.ListCreatedHobbies)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.HobbyTypes.Name</td>
+                            <td>@item.HobbyNames.Name</td>
+                            <td>
+                                <form name="DeleteHobby" method="post">
+                                    <input type="hidden" name="Mode" value="0" />
+                                    <input type="hidden" name="HobbyId" value="@item.Id" />
+                                    <input type="hidden" name="TypeId" value="@item.HobbyTypeId" />
+                                    <input type="hidden" name="NameId" value="@item.HobbyNameId" />
+                                    <input type="submit" value="Удалить" />
+                                </form>
+                            </td>
+                        </tr>
+                    }
+            </table></td></tr>
+    </table>
+</body>
+</html>
+
+<script language="javascript">
+    function OnChangeType()
+    {
+        var TableLink = document.getElementById("LinkTypeName");
+        if (TableLink.childElementCount > 1)
+            TableLink.removeChild(TableLink.lastElementChild);
+    }
+     
+    function OnChangeName()
+    {
+        var TableLink = document.getElementById("LinkTypeName");
+        if (TableLink.childElementCount > 1)
+            TableLink.removeChild(TableLink.lastElementChild);
+
+        var tr = document.createElement('tr');
+
+        var td_1 = tr.appendChild(document.createElement('td'));
+        td_1.innerText = document.getElementById("TypeId").value;
+
+        var td_2 = tr.appendChild(document.createElement('td'));
+        var Index = document.getElementById("TypeId").selectedIndex;
+        var Text = document.getElementById("TypeId").children[Index].textContent;
+        td_2.innerText = Text;
+
+        var td_3 = tr.appendChild(document.createElement('td'));
+        td_3.innerText = document.getElementById("NameId").value;
+
+        var td_4 = tr.appendChild(document.createElement('td'));
+        Index = document.getElementById("NameId").selectedIndex;
+        Text = document.getElementById("NameId").children[Index].textContent;
+        td_4.innerText = Text;
+
+        TableLink.appendChild(tr);
+        document.getElementById("LinkButton").disabled = false;
+    }
+
+    function OnCreateLint()
+    {
+        document.forms["AddLinkTypeName"].submit();
+    }
+</script>
+ 

@@ -1,0 +1,71 @@
+﻿@using Models
+@model HobbiesPortal.ViewModels.EditViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Редактирование пользователя";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="../../Content/Hobbies.css" />
+</head>
+<body>
+    <table width="80%" align="center">
+        <tr>
+            <td>
+                <div>
+                    <h3>Форма редактирования пользователя</h3>
+                    <form method="post">
+                        <input type="hidden" value="@Model.CurrUser.Id" name="Id" />
+                        <table>
+                            <tr><td>Фамилия и имя пользователя</td></tr>
+                            <tr><td><input type="text" value="@Model.CurrUser.Name" name="Name" /></td></tr>
+                            <tr><td>Пол</td></tr>
+                            <tr><td><input type="text" value="@Model.CurrUser.Sex" name="Sex" /></td></tr>
+                            <tr><td>День рождения</td></tr>
+                            <tr><td><input type="text" value="@Model.CurrUser.BirthDay" name="BirthDay" /> </td></tr>
+                            <tr><td>Возраст</td></tr>
+                            <tr><td><input type="text" value="@Model.CurrUser.Age" name="Age" /> </td></tr>
+                            <tr></tr>
+                            <tr><td><p><input type="submit" value="Сохранить" /></p> </td></tr>
+                        </table>
+                    </form>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <h3>Увлечения пользователя</h3>
+                    <p>
+                        <a href="~/api/Users/AddUserHobby?UserId=@Model.CurrUser.Id&TypeId=0&NameId=0">
+                            Добавить увлечение
+                        </a><br/>
+                        <a href="~/api/Users/AddHobbyFromList?UserId=@Model.CurrUser.Id">
+                            Добавить увлечение из списка
+                        </a>
+                    </p>
+                    <table border="1" name="UserHobbies">
+                        <tr><td align="center">Ид.</td><td align="center">Вид увлечения</td>
+                        <td align="center">Увлечение</td><td align="center">Действие</td></tr>
+                        @foreach (Hobby item in Model.ListHobies)
+                        {
+                        <tr>
+                            <td><label>@item.Id</label></td>
+                            <td><label>@item.HobbyTypes.Name</label></td>
+                            <td><label>@item.HobbyNames.Name</label></td>
+                            <td>
+                                @Html.ActionLink("Удалить", "DeleteUserHobby",
+                                            new { UserId = Model.CurrUser.Id, HobbyId= item.Id })
+                            </td>
+                        </tr>
+                        }
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

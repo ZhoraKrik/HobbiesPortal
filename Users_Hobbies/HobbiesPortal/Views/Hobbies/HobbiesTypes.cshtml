@@ -1,0 +1,56 @@
+﻿@using Models
+@model IEnumerable<Models.HobbyType>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Типы увлечений";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="../../Content/Hobbies.css" />
+</head>
+<body>
+    <table align="center">
+        <tr><td><h3>Форма упраления типами увлечений</h3></td></tr>
+        <tr><td align="center"><a href="~/api/Hobbies/MainHobbies">Вернуться</a></td></tr>
+    </table>
+        <table width="80%">
+            <tr><td><form name="FormAddType" method="post">
+                    <input type="hidden" name="Mode" value="1">
+                    <table align="center" border="0">
+                        <tr>
+                            <td align="right"><h4>Название типа:</h4></td>
+                            <td align="center"><input name="strAddTypeName" value="" /></td>
+                            <td align="left"><input type="submit" value="Добавить" /></td>
+                        </tr>
+                    </table>
+                    </form></td>
+                    <td><form name="FormDelType" method="post">
+                    <input type="hidden" name="Mode" value="0">
+                    <table align="center" border="0">
+                        <tr><td>
+                            <select id="TypeId" name="TypeId" class="form-control">
+                                @foreach (HobbyType item in Model)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select></td>
+                            <td><input type="submit" value="Удалить" /></td></tr>
+                    </table>
+                    </form>
+                </td></tr>
+        </table>
+    <table align="center" border="1">
+        <tr><td colspan="2" align="center"><h3>Список типов увлечений:</h3></td></tr>
+        <tr><td align="center">Ид.</td><td align="center">Тип</td></tr>
+        @foreach( HobbyType item in Model )
+        {
+            <tr><td align="center">@item.Id</td><td align="center">@item.Name</td></tr>
+        }
+    </table>
+</body>
+</html>

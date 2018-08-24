@@ -1,0 +1,119 @@
+﻿
+@model IEnumerable<Models.UserInfo>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Список пользователей";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="../../Content/Hobbies.css" />
+</head>
+<body>
+    <p>
+        <a href="~/api/Users/AddUser">Добавить пользователя</a>
+    </p>
+    <table border="1" class="table" align="center">
+        <caption><h3>Список пользователей</h3></caption>
+        <thead>
+            <tr>
+                <td width="50" align="center">
+                    <h4>Ид.</h4>
+                </td>
+                <th width="200" align="center">
+                    <h4>Фамилия и имя</h4>
+                </th>
+                <th width="70" align="center">
+                    <h4>Пол</h4>
+                </th>
+                <th width="100" align="center">
+                    <h4>Дата рождения</h4>
+                </th>
+                <th width="70" align="center">
+                    <h4>Возраст</h4>
+                </th>
+                <th width="200" align="center">
+                    <table border="0"><tr><th width="150"><h4>Вид увлечения</h4></th>
+                        <th width="150"><h4>Увлечение</h4></th></tr>
+                    </table>
+                </th>
+                <th width="100" align="center"><h4>Действие</h4></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var lstUsers = Model.OrderBy(ui => (ui.CurrUser.Id, ui.HobbyType));
+                @for (var Index= 0;  Index < lstUsers.Count(); Index++)
+                {
+                    var item_1 = lstUsers.ElementAt(Index);
+                <tr>
+                    <th width="30" align="center">
+                        @Html.DisplayFor(modelItem => item_1.CurrUser.Id)
+                    </th>
+                    <th width="200" align="left">
+                        @Html.DisplayFor(modelItem => item_1.CurrUser.Name)
+                    </th>
+                    <th width="70" align="center">
+                        @Html.DisplayFor(modelItem => item_1.CurrUser.Sex)
+                    </th>
+                    <th width="100" align="center">
+                        @Html.DisplayFor(modelItem => item_1.CurrUser.BirthDay)
+                    </th>
+                    <th width="70" align="center">
+                        @Html.DisplayFor(modelItem => item_1.CurrUser.Age)
+                    </th>
+                    <th width="200" align="left"> 
+                        <table border="0">
+                            @for (; Index < lstUsers.Count(); Index++)
+                            {
+                                var item_2 = lstUsers.ElementAt(Index);
+                                if (item_2.CurrUser.Id == item_1.CurrUser.Id)
+                                {
+                                    <tr>
+                                    <th width="150">@item_2.HobbyType</th>
+                                    <th width="150">
+                                    <table>
+                                        @for (; Index < lstUsers.Count(); Index++)
+                                        {
+                                            var item_3 = lstUsers.ElementAt(Index);
+                                            if (item_3.CurrUser.Id == item_1.CurrUser.Id & item_3.HobbyType == item_2.HobbyType)
+                                            {
+                                                <tr><th>@item_3.HobbyName</th></tr>
+                                            }
+                                            else
+                                            {
+                                                --Index;
+                                                break;
+                                            }
+                                        }
+                                    </table></th></tr>
+                                }
+                                else
+                                {
+                                    --Index;
+                                    break;
+                                }
+                            }
+                            </table>
+                    </th>
+                    <td width="150" align="center">
+                        <table>
+                            <tr><td>
+                                @Html.ActionLink("Edit", "EditUser", new { UserId = item_1.CurrUser.Id })
+                                </td>
+                            <td>
+                                @Html.ActionLink("Delete", "DeleteUser", new { UserId = item_1.CurrUser.Id })
+                            </td></tr>
+                        </table>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</body>
+</html>

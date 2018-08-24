@@ -1,0 +1,56 @@
+﻿@using  Models
+@model HobbiesPortal.ViewModels.DeleteUserHobby
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Удаление увлечения пользователю";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="../../Content/Hobbies.css" />
+</head>
+<body>
+    <table width="60%" align="center" border="1">
+		<tr><td align="center"><table><tr><td><p><h3>Форма удаления увлечения</h3></p></td></tr></table>
+		</tr>
+		<tr><td align="center">
+			<table border="0">
+			<tr><td width="25%" align="center">Пользователь</td>
+				<td width="25%" align="center">Пол</td>
+				<td width="25%" align="center">День рождения</td>
+				<td width="25%" align="center">Возраст</td></tr>
+			<tr><td width="25%" align="center">@Model.CurrUser.Name</td>
+				<td width="25%" align="center">@Model.CurrUser.Sex</td>
+				<td width="25%" align="center">@Model.CurrUser.BirthDay</td>
+				<td width="25%" align="center">@Model.CurrUser.Age</td>
+			</tr>
+			</table>
+			</td></tr>
+			<tr><td align="center"><table><tr><td align="center"><h4>Увлечение</h4></td></tr></table></td>
+			</tr>
+			<tr><td>
+					<table align="center" border="0">
+						<tr><td width="30%" align="center">Ид.</td><td width="40%" align="center">Вид</td>
+						<td width="40%" align="center">Увлечение</td></tr>
+						<tr><td align="center">@Model.CurrHobby.Id</td>
+						<td align="center">@Model.CurrHobby.HobbyTypes.Name</td>
+						<td align="center">@Model.CurrHobby.HobbyNames.Name</td>
+						</tr>
+					</table></td>
+			</tr>
+			<tr> 
+            <td align="center">
+                <form name="DeleteUserHobby" method="post">
+                    <input type="hidden" name="UserId" value="@Model.CurrUser.Id" />
+                    <input type="hidden" name="HobbyId" value="@Model.CurrHobby.Id" />
+                    <input type="submit" value="Удалить" />
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
