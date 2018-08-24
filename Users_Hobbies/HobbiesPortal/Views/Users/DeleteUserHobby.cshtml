@@ -1,5 +1,5 @@
 ﻿@using  Models
-@model HobbiesPortal.ViewModels.DeleteUserHobby
+@model HobbiesPortal.ViewModels.Del_UserHobby
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -47,7 +47,12 @@
                 <form name="DeleteUserHobby" method="post">
                     <input type="hidden" name="UserId" value="@Model.CurrUser.Id" />
                     <input type="hidden" name="HobbyId" value="@Model.CurrHobby.Id" />
-                    <input type="submit" value="Удалить" />
+                    <table>
+                        <tr><td><input type="submit" value="Удалить" /></td>
+                        <td width="10%"></td>
+                        <td>
+                            @Html.ActionLink("Вернуться", "EditUser", new { UserId = Model.CurrUser.Id })
+                        </td></tr></table>
                 </form>
             </td>
         </tr>

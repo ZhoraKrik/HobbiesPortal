@@ -142,10 +142,9 @@ namespace HobbiesPortal.Controllers
         }
 
         // GET: UserHobby/Delete
-        [HttpPost]
         public async Task<IActionResult> DeleteUserHobby(int UserId, int  HobbyId)
         {
-            DeleteUserHobby delHobbyView = new DeleteUserHobby();
+            Del_UserHobby delHobbyView = new Del_UserHobby();
             delHobbyView.CurrUser = await m_hobbiesRepository.GetCurrentUser(UserId);
             delHobbyView.CurrHobby= await m_hobbiesRepository.GetCurrentHobby(HobbyId);
 
